@@ -1,3 +1,5 @@
+#include "sfml_rpgen.h"
+
 #include "imgui.h"
 #include "imgui-SFML.h"
 
@@ -9,10 +11,9 @@
 #include <SFML/OpenGL.hpp>
 #include <SFML/Graphics.hpp>
 
-int main()
-//int main_sfml_imgui()
+int sfml_rpgen(int argc, char* argv[])
 {
-    sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML = <3");
+    sf::RenderWindow window(sf::VideoMode(640, 480), "ImGui + SFML + GL");
     window.setFramerateLimit(60);
     ImGui::SFML::Init(window);
 
@@ -97,31 +98,19 @@ int main()
     glDisableClientState(GL_NORMAL_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-    
-
     //2d draw
-    //sf::CircleShape shape(100.f);
-    //shape.setFillColor(sf::Color::Green);
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
 
     //https://github.com/Mischa-Alff/imgui-backends/blob/master/SFML/README.md
     //https://github.com/ocornut/imgui/issues/1064
-
-    /*
-    ImGui::Begin();
-    ...
-    ImGui::End();
-
-    m_window->clear();
-    m_window->draw(...);
-    window->resetGLStates();
-    ImGui::Render();
-    m_window->display();
-    */
 
     // Create a clock for measuring the time elapsed
     sf::Clock clock;
     sf::Clock deltaClock;
     while (window.isOpen()) {
+
+        window.clear();
 
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -140,10 +129,6 @@ int main()
         ImGui::Button("Look at this pretty button");
         ImGui::End();
 
-        window.clear();
-        //window.draw(shape);
-
-
         // Clear the color and depth buffers
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
          
@@ -157,10 +142,13 @@ int main()
 
         // Draw the cube
         glDrawArrays(GL_TRIANGLES, 0, 36);
-        ImGui::SFML::Render(window);
-        window.display();
 
-        
+        window.pushGLStates();
+        window.resetGLStates();
+        window.draw(shape);
+        ImGui::SFML::Render(window);
+        window.popGLStates();
+        window.display();
     }
 
     ImGui::SFML::Shutdown();

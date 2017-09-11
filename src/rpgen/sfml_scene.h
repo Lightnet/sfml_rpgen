@@ -1,0 +1,1 @@
+int sfml_scene(int argc, char* argv[]);

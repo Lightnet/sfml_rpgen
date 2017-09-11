@@ -10,9 +10,9 @@ IMGUI_PATH = 'imgui'
 #--------
 
 projectname = 'sfml_rpgen'				#holds the project name
-projectpackage = 'main'						#holds the project folder
+#projectpackage = 'main'					#holds the project folder
 SRC_PATH = 'src'
-builddir = '.' + os.sep + SRC_PATH + os.sep + projectpackage  			#holds the build directory for this project
+builddir = '.' + os.sep + SRC_PATH      #holds the build directory for this project
 
 #-------
 #---- SFML ----
@@ -22,14 +22,18 @@ SFML_BIN = 'SFML-2.4.2\\bin\\'
 
 #--include files
 include_packages = []
+include_packages.append(SRC_PATH)
 include_packages.append('SFML-2.4.2\\include')
 include_packages.append(SRC_PATH + os.sep + 'imgui')
+#include_packages.append(SRC_PATH + os.sep + 'rpgen')
+
 
 #--engine node packages
 core_packages = []
 
 #--lib
 lib_packages = []
+lib_packages.append('rpgen')
 lib_packages.append('imgui')
 lib_packages.append('opengl32')
 

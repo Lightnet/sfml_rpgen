@@ -9,7 +9,6 @@
 #include <SFML/OpenGL.hpp>
 //#include "imgui-SFML.h"
 
-
 ////////////////////////////////////////////////////////////
 /// Entry point of application
 ///
@@ -17,7 +16,7 @@
 ///
 ////////////////////////////////////////////////////////////
 //int main()
-int main_sfml_gl()
+int sfml_gl(int argc, char* argv[])
 {
     // Request a 24-bits depth buffer when creating the window
     sf::ContextSettings contextSettings;

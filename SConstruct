@@ -43,7 +43,8 @@ if system=='Windows':
 	print("**** Window Tool")
 	# Something to do with link error
 	#https://msdn.microsoft.com/en-us/library/y0zzbyt4.aspx
-	#env.Append(LINKFLAGS=['/SUBSYSTEM:CONSOLE'])
+	env.Append(LINKFLAGS=['/SUBSYSTEM:CONSOLE'])
+	env.AppendUnique(CXXFLAGS=["/MD","/EHsc"])
 	if projectmode == 'debug':
 		#env.Append(CPPDEFINES = ['SFML_STATIC'])
 		#env.Append(CPPFLAGS=['_DEBUG'])
@@ -56,6 +57,7 @@ if system=='Windows':
 	
 	env.Append(CPPPATH=include_packages) #include files
 	#build lib file
+	env.Library(buildroot + os.sep +  'rpgen',Glob(SRC_PATH + os.sep  + 'rpgen' + os.sep +  '*.cpp')) #Imgui
 	#--imgui
 	env.Library(buildroot + os.sep +  'imgui',Glob(SRC_PATH + os.sep  + IMGUI_PATH + os.sep +  '*.cpp')) #Imgui
 	#--SFML
@@ -89,5 +91,5 @@ if system=='Windows':
 		env.Install(buildroot, SFML_BIN + basename + ".dll") #copy dll to output
 	#env.Install(buildroot,Glob("SFML-2.4.2\\bin\\*.dll") #copy dll to output
 	#exeute application 
-	env.Program(targetpath, Glob(builddir + os.sep + '*.cpp'), LIBS=lib_packages, LIBPATH=['.',SFML_LIBS, buildroot])
+	env.Program(targetpath, Glob(builddir + os.sep + '*.cpp'), LIBS=lib_packages, LIBPATH=['.',builddir,SFML_LIBS, buildroot])
 print("**** Scons Script End!")
