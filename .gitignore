@@ -1,0 +1,7 @@
+
+.sconsign.dblite
+bin/
+*.pyc
+imgui.ini
+src/**/*.obj
+resources/
